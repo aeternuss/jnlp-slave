@@ -1,4 +1,4 @@
-FROM jenkinsci/jnlp-slave:latest
+FROM jenkins/jnlp-slave:latest
 MAINTAINER aeternus <aeternus@aliyun.com>
 
 LABEL Description="Add docker-ce-cli"
