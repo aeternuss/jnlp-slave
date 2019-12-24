@@ -1,28 +1,21 @@
-FROM jenkins/jnlp-slave:latest
+FROM jenkins/jnlp-slave:alpine
 MAINTAINER aeternus <aeternus@aliyun.com>
 
-LABEL Description="Add docker-ce-cli"
+LABEL Description="Install docker-ce-cli"
 
 ARG user=jenkins
 
 ## install docker-ce-cli
 USER root
 RUN set -ex \
-  ## install dependencies
-  && dep_pkgs="apt-transport-https ca-certificates curl gnupg2 software-properties-common" \
-  && apt-get update \
-  && apt-get install -y $dep_pkgs \
-  && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+  \
   ## add repo
-  && add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
-  ## install docker-ce-cli
-  && apt-get update \
-  && apt-get install -y docker-ce-cli \
-  ## clean
-  && apt-get remove -y $dep_pkgs \
-  && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/*
+  && echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >>/etc/apk/repositories \
+  \
+  ## install docker-cli
+  && apk add --no-cache docker-cli \
+  \
+  ## cleanup
+  && && rm -rf /tmp/*
 
 USER ${user}
