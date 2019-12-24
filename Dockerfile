@@ -16,6 +16,6 @@ RUN set -ex \
   && apk add --no-cache docker-cli \
   \
   ## cleanup
-  && && rm -rf /tmp/*
+  && rm -rf /tmp/*
 
 USER ${user}
