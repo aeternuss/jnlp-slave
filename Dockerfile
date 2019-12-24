@@ -11,7 +11,7 @@ RUN set -ex \
   ## install dependencies
   && dep_pkgs="apt-transport-https ca-certificates curl gnupg2 software-properties-common" \
   && apt-get update \
-  && apt-get install -y $dep_pkgs
+  && apt-get install -y $dep_pkgs \
   && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
   ## add repo
   && add-apt-repository \
