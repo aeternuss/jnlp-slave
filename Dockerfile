@@ -20,9 +20,9 @@ RUN set -ex \
   && apt-get update \
   && apt-get install -y docker-ce-cli \
   ## clean
-  && apt-get remove $dep_pkgs \
-  && apt-get autoremove \
-  && apt-get clean \
+  && apt-get remove -y $dep_pkgs \
+  && apt-get autoremove -y \
+  && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
 
 USER ${user}
