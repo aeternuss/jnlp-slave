@@ -2,7 +2,7 @@ pipeline {
     agent none
 
     parameters {
-        string(name:'GIT_TAG', defaultValue:'null', description:'docker image tag')
+        string(name:'GIT_TAG', defaultValue:'', description:'docker image tag')
     }
 
     environment {
@@ -29,7 +29,7 @@ pipeline {
 
             when {
                 beforeAgent true
-                expression { return params.GIT_TAG }
+                expression { params.GIT_TAG ==~ /^v[0-9.]+.*/ }
             }
 
             steps {
