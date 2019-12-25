@@ -17,7 +17,6 @@ pipeline {
             agent { dockerfile true }
 
             steps {
-                sh 'env'
                 sh 'echo "SUCESSE!"'
             }
         }
