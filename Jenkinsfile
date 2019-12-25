@@ -28,6 +28,7 @@ pipeline {
             }
 
             when {
+                beforeAgent true
                 expression { return params.GIT_TAG }
             }
 
