@@ -2,7 +2,7 @@ pipeline {
     agent none
 
     parameters {
-        string(name:'GIT_TAG', defaultValue:'', description:'docker image tag')
+        string(name:'git_tag', defaultValue:'', description:'docker image tag')
     }
 
     environment {
@@ -16,6 +16,7 @@ pipeline {
             agent { dockerfile true }
 
             steps {
+                sh 'env'
                 sh 'echo "SUCESSE!"'
             }
         }
@@ -29,7 +30,7 @@ pipeline {
 
             when {
                 beforeAgent true
-                expression { params.GIT_TAG ==~ /^v[0-9.]+.*/ }
+                expression { params.git_tag ==~ /^v[0-9.]+.*/ }
             }
 
             steps {
@@ -39,9 +40,8 @@ pipeline {
                 sh 'git config --global user.email ${git_email}'
                 sh 'git config --local credential.helper "!p() { echo username=${GITHUB_AUTH_USR}; echo password=${GITHUB_AUTH_PSW}; }; p"'
 
-                sh 'env'
-                //sh 'git tag ${params.GIT_TAG}'
-                //sh 'git push origin ${params.GIT_TAG}'
+                sh 'git tag ${params.git_tag}'
+                sh 'git push origin ${params.git_tag}'
             }
         }
     }
