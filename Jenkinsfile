@@ -13,11 +13,7 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent {
-                dockerfile {
-                    additionalBuildArgs '--tag ${image_name}:${params.GIT_TAG}'
-                }
-             }
+            agent { dockerfile true }
 
             steps {
                 sh 'echo "SUCESSE!"'
@@ -40,7 +36,7 @@ pipeline {
 
                 sh 'git config --global user.name ${git_user}'
                 sh 'git config --global user.email ${git_email}'
-                sh 'git config --local credential.helper "!p() { echo username=$GITHUB_AUTH_USR; echo password=$GITHUB_AUTH_PSW; }; p"'
+                sh 'git config --local credential.helper "!p() { echo username=${GITHUB_AUTH_USR}; echo password=${GITHUB_AUTH_PSW}; }; p"'
 
                 sh 'git tag ${params.GIT_TAG}'
                 sh 'git push origin ${params.GIT_TAG}'
