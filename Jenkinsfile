@@ -40,8 +40,8 @@ pipeline {
                 sh 'git config --global user.email ${git_email}'
                 sh 'git config --local credential.helper "!p() { echo username=${GITHUB_AUTH_USR}; echo password=${GITHUB_AUTH_PSW}; }; p"'
 
-                sh 'git tag ${params.git_tag}'
-                sh 'git push origin ${params.git_tag}'
+                sh 'git tag ${git_tag}'
+                sh 'git push origin ${git_tag}'
             }
         }
     }
