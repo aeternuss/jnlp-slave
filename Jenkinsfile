@@ -1,4 +1,6 @@
 pipeline {
+    agent { none }
+
     parameters {
         string(name:'GIT_TAG', defaultValue:'NULL', description:'docker image tag')
     }
@@ -18,15 +20,15 @@ pipeline {
         }
 
         stage('Tag') {
+            agent { docker { image 'alpine:latest' } }
+
             environment {
-                GITHUB_AUTH = credentials('github-auth')
+                GITHUB_AUTH = credentials('5c078334-f2e8-44c0-acb3-a8d6f03cc61b')
             }
 
             when {
                 not { equals expected:'NULL', actual:params.GIT_TAG }
             }
-
-            agent { docker { image 'alpine:latest' } }
 
             steps {
                 sh 'apk add --no-cache git'
