@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             agent {
                 dockerfile {
-                    additionBuildArgs '--tag ${image_name}:${params.GIT_TAG}'
+                    additionalBuildArgs '--tag ${image_name}:${params.GIT_TAG}'
                 }
              }
 
