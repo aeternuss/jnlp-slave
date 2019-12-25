@@ -1,5 +1,5 @@
 pipeline {
-    agent { none }
+    agent none
 
     parameters {
         string(name:'GIT_TAG', defaultValue:'NULL', description:'docker image tag')
