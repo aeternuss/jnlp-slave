@@ -25,6 +25,7 @@ pipeline {
 
             environment {
                 GITHUB_AUTH = credentials('GitHub-PAT')
+                git_tag = '${params.GIT_TAG}'
             }
 
             when {
@@ -39,8 +40,8 @@ pipeline {
                 sh 'git config --global user.email ${git_email}'
                 sh 'git config --local credential.helper "!p() { echo username=${GITHUB_AUTH_USR}; echo password=${GITHUB_AUTH_PSW}; }; p"'
 
-                sh 'git tag ${params.GIT_TAG}'
-                sh 'git push origin ${params.GIT_TAG}'
+                sh 'git tag ${git_tag}'
+                sh 'git push origin ${git_tag}'
             }
         }
     }
