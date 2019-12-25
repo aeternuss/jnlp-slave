@@ -9,7 +9,7 @@ pipeline {
         git_user = 'aeternus'
         git_email = 'aeternus@aliyun.com'
         image_name = 'jnlp-slave'
-        tools_image_tag = '1.0.1-alpine'
+        stage_tag_image = 'aeternuss/tools:1.0.1-alpine'
     }
 
     stages {
@@ -23,7 +23,7 @@ pipeline {
         }
 
         stage('Tag') {
-            agent { docker { image 'aeternuss/tools:${tools_image_tag}' } }
+            agent { docker { image '${stage_tag_image}' } }
 
             environment {
                 GITHUB_AUTH = credentials('GitHub-PAT')
